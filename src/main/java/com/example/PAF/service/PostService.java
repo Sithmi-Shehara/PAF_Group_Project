@@ -20,7 +20,8 @@ public class PostService {
     private final PostRepository postRepository;
 
     // TODO: change file directory
-    private static final String IMAGE_DIRECTORY = "/Users/nuwanharsha/Documents/TEST/skill-sharing-frontend/public/posts/";
+
+    private static final String IMAGE_DIRECTORY ="C:\\Users\\ASUS\\Documents\\PAF-Frontend\\public\\posts\\";
 
     public PostService(PostRepository postRepository) {
         this.postRepository = postRepository;
