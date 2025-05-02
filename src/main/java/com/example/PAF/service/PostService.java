@@ -40,7 +40,9 @@ public class PostService {
             Post post = new Post();
             post.setDescription(postRequest.getDescription());
             post.setTitle(postRequest.getTitle());
+            post.setHeadline(postRequest.getHeadline());
             post.setUserName(postRequest.getUserName());
+            post.setTags(postRequest.getTags());
             post.setCreatedAt(new Date());
             MultipartFile file = postRequest.getImageFile();
             if (file != null && !file.isEmpty()) {
@@ -94,6 +96,7 @@ public class PostService {
         try {
             post.setDescription(updatedPost.getDescription());
             post.setTitle(updatedPost.getTitle());
+            post.setTags(updatedPost.getTags());
             post.setUpdatedAt(new Date());
             MultipartFile file = updatedPost.getFile();
             if (file != null && !file.isEmpty()) {
