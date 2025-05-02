@@ -1,5 +1,6 @@
 package com.example.PAF.controller;
 
+import com.example.PAF.model.Comment;
 import com.example.PAF.model.LearningProgressUpdate;
 import com.example.PAF.service.LearningProgressUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,11 @@ public class LearningProgressUpdateController {
     @DeleteMapping("/{id}")
     public void deleteProgress(@PathVariable String id) {
         service.deleteProgress(id);
+    }
+    @PostMapping("/{id}/comment")
+    public LearningProgressUpdate addComment(
+            @PathVariable String id,
+            @RequestBody Comment comment) {
+        return service.addComment(id, comment);
     }
 }
