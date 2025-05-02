@@ -3,6 +3,8 @@ package com.example.PAF.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Document(collection = "learning_progress")
 public class LearningProgressUpdate {
@@ -16,6 +18,8 @@ public class LearningProgressUpdate {
     private String templateType;
 
     private LocalDateTime createdAt;
+
+    private List<Comment> comments = new ArrayList<>();
 
     public String getUserId() {
         return userId;
@@ -41,5 +45,13 @@ public class LearningProgressUpdate {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }
