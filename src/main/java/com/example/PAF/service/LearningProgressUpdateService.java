@@ -1,5 +1,6 @@
 package com.example.PAF.service;
 
+import com.example.PAF.model.Comment;
 import com.example.PAF.model.LearningProgressUpdate;
 import com.example.PAF.repository.LearningProgressUpdateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,12 @@ public class LearningProgressUpdateService {
 
     public void deleteProgress(String id) {
         repository.deleteById(id);
+    }
+
+    public LearningProgressUpdate addComment(String postId, Comment comment) {
+        LearningProgressUpdate post = repository.findById(postId).orElseThrow();
+        comment.setCommentedAt(LocalDateTime.now());
+        post.getComments().add(comment);
+        return repository.save(post);
     }
 }
