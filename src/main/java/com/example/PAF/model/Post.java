@@ -17,7 +17,7 @@ public class Post {
     private String userName;
     private String headline;
     private String description;
-    private String filePath;
+    private List<String> filePaths;
     private List<String> tags;
     private Date createdAt;
     private Date updatedAt;

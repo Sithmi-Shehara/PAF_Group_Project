@@ -11,6 +11,8 @@ public class PostRequest {
     private String userName;
     private String headline;
     private String description;
-    private MultipartFile imageFile;
+    private MultipartFile mediaFile0;
+    private MultipartFile mediaFile1;
+    private MultipartFile mediaFile2;
     private List<String> tags;
 }

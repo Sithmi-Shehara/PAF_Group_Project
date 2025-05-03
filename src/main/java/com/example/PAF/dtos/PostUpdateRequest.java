@@ -9,6 +9,8 @@ import java.util.List;
 public class PostUpdateRequest {
     private String description;
     private String title;
-    private MultipartFile file;
+    private MultipartFile mediaFile0;
+    private MultipartFile mediaFile1;
+    private MultipartFile mediaFile2;
     private List<String> tags;
 }
