@@ -13,6 +13,7 @@ import java.io.File;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.ArrayList;
 
 @Service
 public class PostService {
@@ -21,7 +22,8 @@ public class PostService {
 
     // TODO: change file directory
 
-    private static final String IMAGE_DIRECTORY ="C:\\Users\\ASUS\\Documents\\PAF-Frontend\\public\\posts\\";
+    private static final String IMAGE_DIRECTORY = "C:\\Users\\ASUS\\Documents\\PAF-Frontend\\public\\posts\\";
+
 
     public PostService(PostRepository postRepository) {
         this.postRepository = postRepository;
@@ -44,11 +46,28 @@ public class PostService {
             post.setUserName(postRequest.getUserName());
             post.setTags(postRequest.getTags());
             post.setCreatedAt(new Date());
-            MultipartFile file = postRequest.getImageFile();
-            if (file != null && !file.isEmpty()) {
-                String filePath = saveImageFile(file);
-                post.setFilePath(filePath);
+            
+            List<String> filePaths = new ArrayList<>();
+            
+            // Handle mediaFile0
+            if (postRequest.getMediaFile0() != null && !postRequest.getMediaFile0().isEmpty()) {
+                String filePath = saveMediaFile(postRequest.getMediaFile0());
+                filePaths.add(filePath);
             }
+            
+            // Handle mediaFile1
+            if (postRequest.getMediaFile1() != null && !postRequest.getMediaFile1().isEmpty()) {
+                String filePath = saveMediaFile(postRequest.getMediaFile1());
+                filePaths.add(filePath);
+            }
+            
+            // Handle mediaFile2
+            if (postRequest.getMediaFile2() != null && !postRequest.getMediaFile2().isEmpty()) {
+                String filePath = saveMediaFile(postRequest.getMediaFile2());
+                filePaths.add(filePath);
+            }
+            
+            post.setFilePaths(filePaths);
             Post savedPost = postRepository.save(post);
             return new ResponseEntity<>(savedPost, HttpStatus.CREATED);
         } catch (Exception e) {
@@ -56,10 +75,11 @@ public class PostService {
         }
     }
 
-    private String saveImageFile(MultipartFile file) {
-        // Allow only image files and check size
-        if (!file.getContentType().startsWith("image/") || file.getSize() > 1024 * 1024 * 1024) {
-            throw new IllegalArgumentException("Only image files under 1GB are allowed");
+    private String saveMediaFile(MultipartFile file) {
+        // Allow image and video files and check size
+        String contentType = file.getContentType();
+        if ((!contentType.startsWith("image/") && !contentType.startsWith("video/")) || file.getSize() > 1024 * 1024 * 1024) {
+            throw new IllegalArgumentException("Only image/video files under 1GB are allowed");
         }
 
         //create the directory if it doesn't exist
@@ -74,17 +94,15 @@ public class PostService {
 
         //Get the absolute path of the file
         String filePath = IMAGE_DIRECTORY + uniqueFileName;
-        System.out.println("ImagePath = "+filePath);
+        System.out.println("MediaPath = "+filePath);
 
         try {
             File destinationFile = new File(filePath);
             file.transferTo(destinationFile); //writing the file to this folder
         } catch (Exception e) {
-            throw new IllegalArgumentException("Error saving Image: " + e.getMessage());
+            throw new IllegalArgumentException("Error saving Media: " + e.getMessage());
         }
         return "/posts/"+uniqueFileName;
-
-
     }
 
     public ResponseEntity<Post> updatePostById(String id, PostUpdateRequest updatedPost) {
@@ -98,11 +116,31 @@ public class PostService {
             post.setTitle(updatedPost.getTitle());
             post.setTags(updatedPost.getTags());
             post.setUpdatedAt(new Date());
-            MultipartFile file = updatedPost.getFile();
-            if (file != null && !file.isEmpty()) {
-                String filePath = saveImageFile(file);
-                post.setFilePath(filePath);
+            
+            List<String> filePaths = new ArrayList<>();
+            
+            // Handle mediaFile0
+            if (updatedPost.getMediaFile0() != null && !updatedPost.getMediaFile0().isEmpty()) {
+                String filePath = saveMediaFile(updatedPost.getMediaFile0());
+                filePaths.add(filePath);
             }
+            
+            // Handle mediaFile1
+            if (updatedPost.getMediaFile1() != null && !updatedPost.getMediaFile1().isEmpty()) {
+                String filePath = saveMediaFile(updatedPost.getMediaFile1());
+                filePaths.add(filePath);
+            }
+            
+            // Handle mediaFile2
+            if (updatedPost.getMediaFile2() != null && !updatedPost.getMediaFile2().isEmpty()) {
+                String filePath = saveMediaFile(updatedPost.getMediaFile2());
+                filePaths.add(filePath);
+            }
+            
+            if (!filePaths.isEmpty()) {
+                post.setFilePaths(filePaths);
+            }
+            
             Post savedPost = postRepository.save(post);
             return new ResponseEntity<>(savedPost, HttpStatus.OK);
         } catch (Exception e) {
