@@ -5,6 +5,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Document(collection = "learning_progress")
 public class LearningProgressUpdate {
@@ -20,6 +22,18 @@ public class LearningProgressUpdate {
     private LocalDateTime createdAt;
 
     private List<Comment> comments = new ArrayList<>();
+
+    private Set<String> likedBy = new HashSet<>();
+
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getUserId() {
         return userId;
@@ -53,5 +67,17 @@ public class LearningProgressUpdate {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public Set<String> getLikedBy() {
+        return likedBy;
+    }
+
+    public void setLikedBy(Set<String> likedBy) {
+        this.likedBy = likedBy;
+    }
+
+    public int getLikeCount() {
+        return likedBy.size();
     }
 }
