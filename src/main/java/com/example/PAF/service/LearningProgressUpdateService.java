@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class LearningProgressUpdateService {
@@ -45,6 +46,22 @@ public class LearningProgressUpdateService {
         LearningProgressUpdate post = repository.findById(postId).orElseThrow();
         comment.setCommentedAt(LocalDateTime.now());
         post.getComments().add(comment);
+        return repository.save(post);
+    }
+
+    public LearningProgressUpdate toggleLike(String id, String userId) {
+        LearningProgressUpdate post = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Progress not found"));
+
+        Set<String> likedBy = post.getLikedBy();
+
+        if (likedBy.contains(userId)) {
+            likedBy.remove(userId); // unlike
+        } else {
+            likedBy.add(userId); // like
+        }
+
+        post.setLikedBy(likedBy);
         return repository.save(post);
     }
 }
