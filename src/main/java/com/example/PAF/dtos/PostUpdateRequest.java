@@ -7,6 +7,7 @@ import java.util.List;
 
 @Data
 public class PostUpdateRequest {
+    private String headline;
     private String description;
     private String title;
     private MultipartFile mediaFile0;
