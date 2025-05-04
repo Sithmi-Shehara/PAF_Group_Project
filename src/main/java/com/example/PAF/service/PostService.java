@@ -78,7 +78,10 @@ public class PostService {
     private String saveMediaFile(MultipartFile file) {
         // Allow image and video files and check size
         String contentType = file.getContentType();
-        if ((!contentType.startsWith("image/") && !contentType.startsWith("video/")) || file.getSize() > 1024 * 1024 * 1024) {
+        if ((!contentType.startsWith("image/") && !contentType.startsWith("video/"))) {
+            throw new IllegalArgumentException("File Type not supported");
+        }
+        if (file.getSize() > 1024 * 1024 * 1024) {
             throw new IllegalArgumentException("Only image/video files under 1GB are allowed");
         }
 
@@ -90,7 +93,7 @@ public class PostService {
             System.out.println("Directory was created");
         }
         //generate unique file name for the file
-        String uniqueFileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+        String uniqueFileName = UUID.randomUUID() + "_." + file.getOriginalFilename().split("\\.")[1];
 
         //Get the absolute path of the file
         String filePath = IMAGE_DIRECTORY + uniqueFileName;
@@ -113,6 +116,7 @@ public class PostService {
 
         try {
             post.setDescription(updatedPost.getDescription());
+            post.setHeadline(updatedPost.getHeadline());
             post.setTitle(updatedPost.getTitle());
             post.setTags(updatedPost.getTags());
             post.setUpdatedAt(new Date());
