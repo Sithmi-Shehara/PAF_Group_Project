@@ -41,6 +41,7 @@ public class LearningProgressUpdateController {
     public void deleteProgress(@PathVariable String id) {
         service.deleteProgress(id);
     }
+
     @PostMapping("/{id}/comment")
     public LearningProgressUpdate addComment(
             @PathVariable String id,
