@@ -4,6 +4,7 @@ import com.example.PAF.model.Comment;
 import com.example.PAF.model.LearningProgressUpdate;
 import com.example.PAF.service.LearningProgressUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,5 +46,14 @@ public class LearningProgressUpdateController {
             @PathVariable String id,
             @RequestBody Comment comment) {
         return service.addComment(id, comment);
+    }
+
+    @PutMapping("/{id}/like")
+    public ResponseEntity<?> toggleLike(
+            @PathVariable String id,
+            @RequestParam String userId) {
+
+        LearningProgressUpdate updated = service.toggleLike(id, userId);
+        return ResponseEntity.ok(updated);
     }
 }
