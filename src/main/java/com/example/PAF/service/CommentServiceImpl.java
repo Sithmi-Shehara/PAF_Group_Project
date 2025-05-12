@@ -1,10 +1,15 @@
 package com.example.PAF.service;
 
 import com.example.PAF.dtos.CommentRequest;
+import com.example.PAF.model.Notification;
+import com.example.PAF.model.Post;
 import com.example.PAF.model.PostComment;
 import com.example.PAF.repository.CommentRepository;
+import com.example.PAF.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -15,7 +20,7 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     private NotificationService notificationService;
     @Autowired
-    private PostService postService;
+    private PostRepository postRepository;
 
     @Override
     public PostComment addComment(CommentRequest request) {
@@ -23,6 +28,15 @@ public class CommentServiceImpl implements CommentService {
         comment.setContent(request.getContent());
         comment.setUserName(request.getUserName());
         comment.setPostId(request.getPostId());
+
+
+        Notification notification = new Notification();
+        notification.setUserName(request.getUserName());
+        notification.setCreatedAt(new Date());
+        notification.setTitle("Comment Received");
+        Post post = postRepository.findById(request.getPostId());
+        notification.setDescription(request.getUserName() + " commented on the post about : " + post.getTitle());
+        notificationService.addNotification(notification);
 
         return commentRepository.save(comment);
     }
