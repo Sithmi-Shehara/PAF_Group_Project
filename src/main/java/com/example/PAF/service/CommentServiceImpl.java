@@ -12,6 +12,10 @@ public class CommentServiceImpl implements CommentService {
 
     @Autowired
     private CommentRepository commentRepository;
+    @Autowired
+    private NotificationService notificationService;
+    @Autowired
+    private PostService postService;
 
     @Override
     public PostComment addComment(CommentRequest request) {

@@ -13,6 +13,10 @@ public class LikeServiceImpl implements LikeService {
 
     @Autowired
     private LikeRepository likeRepository;
+    @Autowired
+    private NotificationService notificationService;
+    @Autowired
+    private PostService postService;
 
     @Override
     public String toggleLike(LikeRequest request) {
