@@ -29,7 +29,6 @@ public class NotificationService {
             Notification savedNotification = notificationRepository.save(notification);
             return new ResponseEntity<>(savedNotification, HttpStatus.CREATED);
         } catch (Exception e) {
-            // Log the exception details here
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -46,8 +45,6 @@ public class NotificationService {
     // Find All Notifications (excluding deleted)
     public ResponseEntity<List<Notification>> findAllNotifications() {
         try {
-            // Assuming you want to filter out logically deleted notifications
-            // If Notification model doesn't have a 'deleted' flag or similar, adjust this logic
              List<Notification> notifications = notificationRepository.findAll().stream()
                      .filter(notification -> !notification.isDeleted())
                      .toList();
@@ -56,29 +53,22 @@ public class NotificationService {
             }
             return new ResponseEntity<>(notifications, HttpStatus.OK);
         } catch (Exception e) {
-            // Log the exception details here
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    // Update Notification by ID
     public ResponseEntity<Notification> updateNotificationById(String id, Notification updatedNotification) {
         Optional<Notification> notificationData = notificationRepository.findById(id);
 
         if (notificationData.isPresent()) {
             Notification existingNotification = notificationData.get();
-            // Only update fields that are meant to be updatable
             existingNotification.setTitle(updatedNotification.getTitle());
             existingNotification.setDescription(updatedNotification.getDescription());
-            // Optionally update userName if needed, depends on requirements
-            // existingNotification.setUserName(updatedNotification.getUserName()); 
-            // We typically don't update createdAt or id
             
             try {
                 Notification savedNotification = notificationRepository.save(existingNotification);
                 return new ResponseEntity<>(savedNotification, HttpStatus.OK);
             } catch (Exception e) {
-                // Log the exception
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         } else {
@@ -93,15 +83,12 @@ public class NotificationService {
             if (notificationData.isPresent()) {
                  Notification notification = notificationData.get();
                  notification.setDeleted(true); // Mark as deleted
-                 notificationRepository.save(notification); // Persist the change
-                // If you want a hard delete:
-                // notificationRepository.deleteById(id);
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT); // Or HttpStatus.OK if preferred
+                 notificationRepository.save(notification);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
         } catch (Exception e) {
-            // Log the exception details here
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
