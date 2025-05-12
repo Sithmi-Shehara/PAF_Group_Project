@@ -1,5 +1,6 @@
 package com.example.PAF.service;
 
+import com.example.PAF.model.Notification;
 import com.example.PAF.model.Post;
 import com.example.PAF.dtos.PostRequest;
 import com.example.PAF.dtos.PostUpdateRequest;
@@ -72,6 +73,15 @@ public class PostService {
             
             post.setFilePaths(filePaths);
             Post savedPost = postRepository.save(post);
+
+            Notification notification = new Notification();
+            notification.setTitle("New Post Created");
+            notification.setDeleted(false);
+            notification.setDescription(postRequest.getUserName() + " shared an Post: " + postRequest.getHeadline());
+            notification.setCreatedAt(new Date());
+            notification.setUserName(postRequest.getUserName());
+            notificationService.addNotification(notification);
+
             return new ResponseEntity<>(savedPost, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
