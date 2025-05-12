@@ -22,7 +22,7 @@ public class NotificationService {
     }
 
     // Add Notification
-    public ResponseEntity<Notification> addNotification(Notification notification) {
+    public ResponseEntity<Notification> taddNotification(Notification notification) {
         try {
             notification.setCreatedAt(new Date());
             notification.setDeleted(false); // Ensure deleted flag is false on creation
@@ -76,7 +76,7 @@ public class NotificationService {
         }
     }
 
-    // Delete Notification by ID (Logical Delete)
+    // Delete Notification by ID (soft Delete)
     public ResponseEntity<HttpStatus> deleteNotificationById(String id) {
         try {
             Optional<Notification> notificationData = notificationRepository.findById(id);
@@ -88,6 +88,23 @@ public class NotificationService {
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // Delete All Notifications (soft Delete)
+    public ResponseEntity<HttpStatus> deleteAllNotifications() {
+        try {
+            List<Notification> notifications = notificationRepository.findAll().stream()
+                    .filter(notification -> !notification.isDeleted())
+                    .toList();
+            if (notifications.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            notifications.forEach(notification -> notification.setDeleted(true));
+            notificationRepository.saveAll(notifications); // Use saveAll for efficiency
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

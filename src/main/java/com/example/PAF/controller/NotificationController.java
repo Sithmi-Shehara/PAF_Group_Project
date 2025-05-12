@@ -50,4 +50,10 @@ public class NotificationController {
     public ResponseEntity<HttpStatus> deleteNotificationById(@PathVariable String id) {
         return notificationService.deleteNotificationById(id);
     }
+
+    // DELETE endpoint to delete all notifications (logically)
+    @DeleteMapping
+    public ResponseEntity<HttpStatus> deleteAllNotifications() {
+        return notificationService.deleteAllNotifications();
+    }
 } 
