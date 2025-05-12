@@ -36,7 +36,7 @@ public class LikeServiceImpl implements LikeService {
             Notification notification = new Notification();
             notification.setUserName(request.getUserName());
             notification.setCreatedAt(new Date());
-            notification.setTitle("New Post Liked");
+            notification.setTitle("Like Received");
             Post post = postRepository.findById(request.getPostId());
             notification.setDescription(request.getUserName() + " liked the post about : " + post.getTitle());
             notificationService.addNotification(notification);
