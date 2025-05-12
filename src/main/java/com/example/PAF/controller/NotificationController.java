@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/notifications") // Base path for notification endpoints
-@CrossOrigin(origins = "*", allowedHeaders = "*") // Consider restricting origins in production
+@RequestMapping("/api/notifications")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class NotificationController {
 
     private final NotificationService notificationService;
