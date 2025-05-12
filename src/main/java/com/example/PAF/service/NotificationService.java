@@ -22,7 +22,7 @@ public class NotificationService {
     }
 
     // Add Notification
-    public ResponseEntity<Notification> taddNotification(Notification notification) {
+    public ResponseEntity<Notification> addNotification(Notification notification) {
         try {
             notification.setCreatedAt(new Date());
             notification.setDeleted(false); // Ensure deleted flag is false on creation
