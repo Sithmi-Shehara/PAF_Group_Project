@@ -2,11 +2,11 @@ package com.example.PAF.model;
 
 import java.util.Date;
 import lombok.*;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.FieldType;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
-@NoArgsConstructor
-@AllArgsConstructor
+@Document(collection = "notifications")
 @Data
 public class Notification {
     @MongoId(value = FieldType.STRING)
