@@ -3,6 +3,7 @@ package com.example.PAF.service;
 import com.example.PAF.model.Post;
 import com.example.PAF.dtos.PostRequest;
 import com.example.PAF.dtos.PostUpdateRequest;
+import com.example.PAF.repository.NotificationRepository;
 import com.example.PAF.repository.PostRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,14 +20,16 @@ import java.util.ArrayList;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final NotificationService notificationService;
 
     // TODO: change file directory
 
     private static final String IMAGE_DIRECTORY = "C:\\Users\\ASUS\\Documents\\PAF-Frontend\\public\\posts\\";
 
 
-    public PostService(PostRepository postRepository) {
+    public PostService(PostRepository postRepository, NotificationService notificationService) {
         this.postRepository = postRepository;
+        this.notificationService = notificationService;
     }
 
     public ResponseEntity<Post> findPostById(String id) {
