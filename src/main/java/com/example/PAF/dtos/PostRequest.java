@@ -9,7 +9,6 @@ import java.util.List;
 public class PostRequest {
     private String title;
     private String userName;
-    private String headline;
     private String description;
     private MultipartFile mediaFile0;
     private MultipartFile mediaFile1;

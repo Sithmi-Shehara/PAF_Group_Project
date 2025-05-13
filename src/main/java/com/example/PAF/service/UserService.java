@@ -4,6 +4,8 @@ import com.example.PAF.model.User;
 import com.example.PAF.dtos.LoginRequest;
 import com.example.PAF.dtos.RegisterRequest;
 import com.example.PAF.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,7 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
     public UserService(UserRepository userRepository) {
@@ -47,10 +50,26 @@ public class UserService {
     }
 
     public Optional<User> findByUsername(String username) {
-        return userRepository.findByUserName(username);
+        logger.info("Attempting to find user by username: '{}'", username); // Log the username being searched
+        Optional<User> userOptional = userRepository.findByUserName(username);
+        if (userOptional.isPresent()) {
+            logger.info("User found: {}", username);
+        } else {
+            logger.warn("User not found: {}", username);
+        }
+        return userOptional;
+    }
+
+    public User findByUserName(String username) {
+        Optional<User> user = findByUsername(username);
+        if(user.isPresent()) {
+            return user.get();
+        }
+        return null;
     }
 
     public List<User> findAllUsers() {
         return userRepository.findAll();
     }
+
 }

@@ -4,6 +4,7 @@ import com.example.PAF.model.Notification;
 import com.example.PAF.model.Post;
 import com.example.PAF.dtos.PostRequest;
 import com.example.PAF.dtos.PostUpdateRequest;
+import com.example.PAF.model.User;
 import com.example.PAF.repository.NotificationRepository;
 import com.example.PAF.repository.PostRepository;
 import org.springframework.http.HttpStatus;
@@ -12,25 +13,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
-import java.util.ArrayList;
+import java.util.*;
 
 @Service
 public class PostService {
 
     private final PostRepository postRepository;
     private final NotificationService notificationService;
+    private final UserService userService;
 
     // TODO: change file directory
 
     private static final String IMAGE_DIRECTORY = "C:\\Users\\ASUS\\Documents\\PAF-Frontend\\public\\posts\\";
 
 
-    public PostService(PostRepository postRepository, NotificationService notificationService) {
+    public PostService(PostRepository postRepository, NotificationService notificationService, UserService userService) {
         this.postRepository = postRepository;
         this.notificationService = notificationService;
+        this.userService = userService;
     }
 
     public ResponseEntity<Post> findPostById(String id) {
@@ -44,10 +44,14 @@ public class PostService {
     public ResponseEntity<Post> addPost(PostRequest postRequest) {
         try {
             Post post = new Post();
+            Optional<User> user = userService.findByUsername(postRequest.getUserName());
             post.setDescription(postRequest.getDescription());
             post.setTitle(postRequest.getTitle());
-            post.setHeadline(postRequest.getHeadline());
             post.setUserName(postRequest.getUserName());
+            if (user.isPresent()) {
+                post.setName(user.get().getFirstName() + " " + user.get().getLastName());
+                post.setHeadline(user.get().getHeadline());
+            }
             post.setTags(postRequest.getTags());
             post.setCreatedAt(new Date());
             
@@ -77,7 +81,7 @@ public class PostService {
             Notification notification = new Notification();
             notification.setTitle("New Post Created");
             notification.setDeleted(false);
-            notification.setDescription(postRequest.getUserName() + " shared an Post: " + postRequest.getHeadline());
+            notification.setDescription(post.getName() + " shared an Post: " + post.getHeadline());
             notification.setCreatedAt(new Date());
             notification.setUserName(postRequest.getUserName());
             notificationService.addNotification(notification);
@@ -129,7 +133,6 @@ public class PostService {
 
         try {
             post.setDescription(updatedPost.getDescription());
-            post.setHeadline(updatedPost.getHeadline());
             post.setTitle(updatedPost.getTitle());
             post.setTags(updatedPost.getTags());
             post.setUpdatedAt(new Date());

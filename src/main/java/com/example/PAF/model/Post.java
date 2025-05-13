@@ -15,6 +15,7 @@ public class Post {
     private String id;
     private String title;
     private String userName;
+    private String name;
     private String headline;
     private String description;
     private List<String> filePaths;
