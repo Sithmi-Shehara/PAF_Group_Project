@@ -14,6 +14,7 @@ public class PostComment {
     private String userName;
     private String postId;
     private LocalDateTime createdAt = LocalDateTime.now();
+
 //created setters and getters
     public String getId() {
         return id;
