@@ -15,7 +15,7 @@ public class CommentController {
 
     @Autowired
     private CommentService commentService;
-//created add comment end point
+    // created add comment end point
     @PostMapping("/add")
     public ResponseEntity<PostComment> addComment(@RequestBody CommentRequest request) {
         return ResponseEntity.ok(commentService.addComment(request));
