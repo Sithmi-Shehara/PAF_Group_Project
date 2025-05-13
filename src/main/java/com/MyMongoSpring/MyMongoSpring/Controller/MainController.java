@@ -19,7 +19,7 @@ public class MainController {
     }
 
     @GetMapping ("/getPlan/{id}")  //function for inserting data
-    public Student getStudent(@PathVariable Integer id){
+    public Student getStudent(@PathVariable Long id){
 
         return studentRepo.findById(id).orElse(null);
     }
@@ -48,7 +48,7 @@ public class MainController {
     }
 
     @DeleteMapping ("/deletePlan/{id}")  //function for inserting data
-    public void deleteStudent(@PathVariable Integer id){
+    public void deleteStudent(@PathVariable Long id){
 
         studentRepo.deleteById(id);
     }
