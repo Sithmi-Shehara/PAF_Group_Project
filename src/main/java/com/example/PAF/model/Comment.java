@@ -2,6 +2,7 @@ package com.example.PAF.model;
 
 import java.time.LocalDateTime;
 
+//created the coment model
 public class Comment {
 
     private String commentText;
