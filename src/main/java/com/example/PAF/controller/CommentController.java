@@ -20,7 +20,7 @@ public class CommentController {
     public ResponseEntity<PostComment> addComment(@RequestBody CommentRequest request) {
         return ResponseEntity.ok(commentService.addComment(request));
     }
-//created post comment end point
+    //created post comment end point
     @GetMapping("/post/{postId}")
     public ResponseEntity<List<PostComment>> getCommentsByPost(@PathVariable String postId) {
         return ResponseEntity.ok(commentService.getCommentsByPostId(postId));
