@@ -18,7 +18,7 @@ public class PostLike {
         this.userName = userName;
     }
 
-    // Getters & Setters
+    // created Getters & Setters
 
     public String getId() {
         return id;
