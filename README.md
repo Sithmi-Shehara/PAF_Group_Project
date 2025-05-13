@@ -8,7 +8,7 @@ Before you begin, ensure you have met the following requirements:
 
 *   **Java Development Kit (JDK):** Version 17 or later. ([Download OpenJDK](https://openjdk.java.net/))
 *   **Apache Maven:** Version 3.6 or later. ([Download Maven](https://maven.apache.org/download.cgi))
-*   **MongoDB:** A running instance of MongoDB (version 4.x or later recommended). ([Install MongoDB](https://docs.mongodb.com/manual/installation/))
+*   **MongoDB:** A running instance of MongoDB (version 4.x or later recommended) or a MongoDB Atlas account. ([Install MongoDB](https://docs.mongodb.com/manual/installation/) | [MongoDB Atlas](https://www.mongodb.com/cloud/atlas))
 
 ## Setup and Installation
 
