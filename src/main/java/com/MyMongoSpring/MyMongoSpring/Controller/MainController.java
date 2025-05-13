@@ -1,6 +1,11 @@
 package com.MyMongoSpring.MyMongoSpring.Controller;
 
 import com.MyMongoSpring.MyMongoSpring.Model.Student;
+import com.MyMongoSpring.MyMongoSpring.Model.Badge;
+
+
+
+import com.MyMongoSpring.MyMongoSpring.Repositary.BadgeRepo;
 import com.MyMongoSpring.MyMongoSpring.Repositary.StudentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,19 +23,19 @@ public class MainController {
 
     }
 
-    @GetMapping ("/getPlan/{id}")  //function for inserting data
+    @GetMapping ("/getPlan/{id}")  //function for retrieve data
     public Student getStudent(@PathVariable Long id){
 
         return studentRepo.findById(id).orElse(null);
     }
 
-    @GetMapping ("/fetchPlans")  //function for inserting data
+    @GetMapping ("/fetchPlans")  //function for retrieve all data
     public List<Student> fetchStudents(){
 
         return studentRepo.findAll();
     }
 
-    @PutMapping ("/updatePlan")  //function for inserting data
+    @PutMapping ("/updatePlan")  //function for updating data
     public void updateStudent(@RequestBody Student student){
         //fetch data using id
         Student data=studentRepo.findById(student.getPlanId()).orElse(null);
@@ -47,9 +52,32 @@ public class MainController {
         }
     }
 
-    @DeleteMapping ("/deletePlan/{id}")  //function for inserting data
+    @DeleteMapping ("/deletePlan/{id}")  //function for deleting data
     public void deleteStudent(@PathVariable Long id){
 
         studentRepo.deleteById(id);
     }
+
+    @Autowired
+    BadgeRepo badgeRepo;
+
+    @PostMapping("/badges/add")
+    public void addBadge(@RequestBody Badge badge) {
+        badgeRepo.save(badge);
+    }
+
+    @GetMapping("/badges")
+    public List<Badge> getAllBadges() {
+        return badgeRepo.findAll();
+    }
+
+    @PutMapping("/badges/claim/{id}")
+    public void claimBadge(@PathVariable String id) {
+        Badge badge = badgeRepo.findById(id).orElse(null);
+        if (badge != null && !badge.isClaimed()) {
+            badge.setClaimed(true);
+            badgeRepo.save(badge);
+        }
+    }
+
 }
