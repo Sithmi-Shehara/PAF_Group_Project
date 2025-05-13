@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+//created commentController
 @RestController
 @RequestMapping("/api/comments")
 public class CommentController {
