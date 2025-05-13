@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
-
+// created post comment model
 @Document(collection = "post-comments")
 public class PostComment {
 
@@ -15,6 +15,7 @@ public class PostComment {
     private String postId;
     private LocalDateTime createdAt = LocalDateTime.now();
 
+    //created setters and getters
     public String getId() {
         return id;
     }
