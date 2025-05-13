@@ -8,19 +8,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+//created commentController
 @RestController
 @RequestMapping("/api/comments")
 public class CommentController {
 
     @Autowired
     private CommentService commentService;
-
+    // created add comment end point
     @PostMapping("/add")
     public ResponseEntity<PostComment> addComment(@RequestBody CommentRequest request) {
         return ResponseEntity.ok(commentService.addComment(request));
     }
-
+    //created post comment end point
     @GetMapping("/post/{postId}")
     public ResponseEntity<List<PostComment>> getCommentsByPost(@PathVariable String postId) {
         return ResponseEntity.ok(commentService.getCommentsByPostId(postId));
