@@ -9,7 +9,7 @@ public class Comment {
     private String commentedBy;
     private LocalDateTime commentedAt;
 
-    // Getters and Setters
+    // created setter and getters
     public String getCommentText() {
         return commentText;
     }
