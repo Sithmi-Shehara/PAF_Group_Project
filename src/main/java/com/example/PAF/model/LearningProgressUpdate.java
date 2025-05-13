@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.HashSet;
 import java.util.Set;
 
+//created learning progress model
 @Document(collection = "learning_progress")
 public class LearningProgressUpdate {
 
