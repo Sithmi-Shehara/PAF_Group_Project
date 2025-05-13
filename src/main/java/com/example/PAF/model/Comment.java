@@ -2,13 +2,14 @@ package com.example.PAF.model;
 
 import java.time.LocalDateTime;
 
+//created the coment model
 public class Comment {
 
     private String commentText;
     private String commentedBy;
     private LocalDateTime commentedAt;
 
-    // Getters and Setters
+    // created setter and getters
     public String getCommentText() {
         return commentText;
     }
