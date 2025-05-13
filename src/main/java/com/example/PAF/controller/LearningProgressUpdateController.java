@@ -16,7 +16,7 @@ public class LearningProgressUpdateController {
 
     @Autowired
     private LearningProgressUpdateService service;
-
+//created @postMapping
     @PostMapping
     public LearningProgressUpdate createProgress(@RequestBody LearningProgressUpdate update) {
         return service.createUpdate(update);
