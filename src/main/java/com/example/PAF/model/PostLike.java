@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "post_likes")
 public class PostLike {
-
+//created postLike model
     @Id
     private String id;
     private String postId;
