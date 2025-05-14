@@ -16,12 +16,12 @@ public class LearningProgressUpdateController {
 
     @Autowired
     private LearningProgressUpdateService service;
-//created @postMapping
+    // created @postMapping
     @PostMapping
     public LearningProgressUpdate createProgress(@RequestBody LearningProgressUpdate update) {
         return service.createUpdate(update);
     }
-
+//created @getMapping
     @GetMapping("/user/{userId}")
     public List<LearningProgressUpdate> getUserProgress(@PathVariable String userId) {
         return service.getUpdatesByUser(userId);
