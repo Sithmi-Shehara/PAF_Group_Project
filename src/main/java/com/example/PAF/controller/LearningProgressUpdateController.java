@@ -33,12 +33,12 @@ public class LearningProgressUpdateController {
         return service.getAllProgress();
     }
 
-    //created putMapping
+    // created putMapping
     @PutMapping("/{id}")
     public LearningProgressUpdate updateProgress(@PathVariable String id, @RequestBody LearningProgressUpdate update) {
         return service.updateProgress(id, update);
     }
-
+    // created deleteMapping
     @DeleteMapping("/{id}")
     public void deleteProgress(@PathVariable String id) {
         service.deleteProgress(id);
