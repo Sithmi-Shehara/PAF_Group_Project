@@ -27,12 +27,13 @@ public class LearningProgressUpdateController {
     public List<LearningProgressUpdate> getUserProgress(@PathVariable String userId) {
         return service.getUpdatesByUser(userId);
     }
-
+    //created getAll progress
     @GetMapping
     public List<LearningProgressUpdate> getAllProgress() {
         return service.getAllProgress();
     }
 
+    //created putMapping
     @PutMapping("/{id}")
     public LearningProgressUpdate updateProgress(@PathVariable String id, @RequestBody LearningProgressUpdate update) {
         return service.updateProgress(id, update);
