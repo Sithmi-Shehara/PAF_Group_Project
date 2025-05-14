@@ -21,7 +21,7 @@ public class LearningProgressUpdateController {
     public LearningProgressUpdate createProgress(@RequestBody LearningProgressUpdate update) {
         return service.createUpdate(update);
     }
-//created @getMapping
+    //created @getMapping
     @GetMapping("/user/{userId}")
     public List<LearningProgressUpdate> getUserProgress(@PathVariable String userId) {
         return service.getUpdatesByUser(userId);
