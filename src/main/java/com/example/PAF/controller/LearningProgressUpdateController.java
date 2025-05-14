@@ -38,7 +38,7 @@ public class LearningProgressUpdateController {
     public LearningProgressUpdate updateProgress(@PathVariable String id, @RequestBody LearningProgressUpdate update) {
         return service.updateProgress(id, update);
     }
-    //created deleteMapping
+    // created deleteMapping
     @DeleteMapping("/{id}")
     public void deleteProgress(@PathVariable String id) {
         service.deleteProgress(id);
