@@ -15,7 +15,7 @@ import java.util.Date;
 public class Student {
 
     @Id //primary key
-    private Long planId;
+    private String planId;
     private String planName;
     private String plandesc;
     private Date completedate;
