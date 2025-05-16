@@ -8,14 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+//created public class
 @RestController
 @RequestMapping("/api/likes")
 public class LikeController {
 
     @Autowired
     private LikeService likeService;
-
+    //created postMapping
     @PostMapping("/toggle")
     public ResponseEntity<String> toggleLike(@RequestBody LikeRequest request) {
         return ResponseEntity.ok(likeService.toggleLike(request));
