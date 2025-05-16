@@ -15,7 +15,7 @@ public class LikeController {
 
     @Autowired
     private LikeService likeService;
-
+//created postMapping
     @PostMapping("/toggle")
     public ResponseEntity<String> toggleLike(@RequestBody LikeRequest request) {
         return ResponseEntity.ok(likeService.toggleLike(request));
