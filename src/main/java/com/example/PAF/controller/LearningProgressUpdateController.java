@@ -50,7 +50,7 @@ public class LearningProgressUpdateController {
             @RequestBody Comment comment) {
         return service.addComment(id, comment);
     }
-    //create postMapping
+
     @PutMapping("/{id}/like")
     public ResponseEntity<?> toggleLike(
             @PathVariable String id,
