@@ -25,8 +25,6 @@ public class StudentService {
         return studentRepo.findById(id).orElse(null);
     }
 
-
-
     public List<Student> getAllStudents() {
         return studentRepo.findAll();
     }
@@ -38,11 +36,9 @@ public class StudentService {
             Student data = existing.get();
             data.setPlanName(updatedData.getPlanName());
             data.setPlandesc(updatedData.getPlandesc());
-            data.setTopic(updatedData.getTopic());
-            data.setResourceLink(updatedData.getResourceLink());
             data.setCompletedate(updatedData.getCompletedate());
-            data.setTargetdate(updatedData.getTargetdate());
             data.setStatus(updatedData.getStatus());
+            data.setTopics(updatedData.getTopics()); // correctly update the topics list
             data.setUpdateddate(new Date());
             return studentRepo.save(data);
         }

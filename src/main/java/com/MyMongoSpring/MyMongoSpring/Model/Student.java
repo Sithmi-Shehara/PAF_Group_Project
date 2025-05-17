@@ -6,7 +6,9 @@ import lombok.NoArgsConstructor;  //initialization
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;  //document or table name mongodb
 
+import java.awt.*;
 import java.util.Date;
+import java.util.List;
 
 @Document
 @Data
@@ -19,12 +21,9 @@ public class Student {
     private String planName;
     private String plandesc;
     private Date completedate;
-
-    private String topic;
-    private String resourceLink;
     private String status;
-    private Date targetdate;
-
     private Date createddate;
     private Date updateddate;
+
+    private List<Topic> topics;
 }
