@@ -64,4 +64,13 @@ public class LearningProgressUpdateService {
         post.setLikedBy(likedBy);
         return repository.save(post);
     }
+    public LearningProgressUpdate deleteComment(String progressId, String commentId, String commentedBy) {
+        LearningProgressUpdate post = repository.findById(progressId).orElseThrow();
+
+        post.getComments().removeIf(comment ->
+                comment.getId().equals(commentId) && comment.getCommentedBy().equals(commentedBy)
+        );
+
+        return repository.save(post);
+    }
 }

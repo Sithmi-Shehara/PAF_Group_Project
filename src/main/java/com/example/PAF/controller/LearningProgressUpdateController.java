@@ -57,4 +57,14 @@ public class LearningProgressUpdateController {
         LearningProgressUpdate updated = service.toggleLike(id, userId);
         return ResponseEntity.ok(updated);
     }
+
+        @DeleteMapping("/{progressId}/comment/{commentId}")
+        public ResponseEntity<LearningProgressUpdate> deleteComment(
+                @PathVariable String progressId,
+                @PathVariable String commentId,
+                @RequestParam String commentedBy) {
+
+            LearningProgressUpdate updated = service.deleteComment(progressId, commentId, commentedBy);
+            return ResponseEntity.ok(updated);
+        }
 }
