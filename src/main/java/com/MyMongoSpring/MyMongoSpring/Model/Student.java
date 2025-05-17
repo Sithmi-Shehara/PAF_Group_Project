@@ -22,7 +22,7 @@ public class Student {
 
     private String topic;
     private String resourceLink;
-    private Boolean status;
+    private String status;
     private Date targetdate;
 
     private Date createddate;

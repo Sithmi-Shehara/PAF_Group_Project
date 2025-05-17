@@ -40,6 +40,9 @@ public class StudentService {
             data.setPlandesc(updatedData.getPlandesc());
             data.setTopic(updatedData.getTopic());
             data.setResourceLink(updatedData.getResourceLink());
+            data.setCompletedate(updatedData.getCompletedate());
+            data.setTargetdate(updatedData.getTargetdate());
+            data.setStatus(updatedData.getStatus());
             data.setUpdateddate(new Date());
             return studentRepo.save(data);
         }
